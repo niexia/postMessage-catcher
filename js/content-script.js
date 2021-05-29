@@ -1,33 +1,3 @@
-var timerId = null;
-
-/**
- * log posted message
- */
-function logPostMessage() {
-  const iframeList = Array.from(document.querySelectorAll('iframe'));
-  iframeList.forEach(iframe => {
-    try {
-      if (iframe.contentWindow.__post) {
-        return;
-      }
-      console.log('iframe: ', iframe);
-      const postMessage = iframe.contentWindow.postMessage;
-      iframe.contentWindow.__post = true;
-      iframe.contentWindow.postMessage = function () {
-        console.log(...arguments);
-        const args = [...arguments];
-        postMessage(...args);
-        console.log("Message post to: " + document.location.href, +"\ndata:", ...args);
-      }
-    } catch (error) {
-      // console.log(iframe);
-      // console.log('error', error);
-    }
-  })
-}
-timerId = setInterval(logPostMessage, 800);
-
-
 /**
  * log received message
  * @param {*} event
@@ -42,3 +12,20 @@ function logReceivedMessage(event) {
 }
 addEventListener("message", logReceivedMessage)
 
+/**
+ * inject a script to log postMessage
+ */
+function injectToLogPostMessage() {
+  let $script = document.createElement('script');
+  $script.setAttribute('type', 'text/javascript');
+  $script.src = chrome.runtime.getURL('js/injected-script.js');
+  $script.onload = function () {
+    this.parentNode.removeChild(this);
+  }
+  try {
+    document.head.appendChild($script);
+  } catch (error) {
+    console.log('error: ', error);
+  }
+}
+injectToLogPostMessage();
