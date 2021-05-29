@@ -14,8 +14,9 @@ function __logPostMessage() {
         console.log(...arguments);
         postMessage(...arguments);
       }
+      console.log('catch success!\n', iframe.src)
     } catch (error) {
-      console.log('Catch postMessage error', error);
+      // console.log('Catch postMessage error', error);
     }
   })
 }
