@@ -1,15 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no">
-  <title>popup</title>
-</head>
+	<title>popup</title>
+	<style type="text/css">
+    body {
+      width: 200px;
+      min-height: 100px;
+    }
+    body * {
+      box-sizing: border-box;
+    }
+    .content {
+      width: 60px;
+      position: relative;
+      margin: 20px auto;
+    }
+    .nx-switch {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      background: #409eff; 
+      border-radius: 40px;
+    }
+    .check { 
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      border-radius: 50%;
+      background: #fff ;
+      border: 1px solid #e5e5e5;
+    }
+    input[type=checkbox] {
+      border: 0 none !important;
+      clip: rect(1px,1px,1px,1px);
+      height: 1px !important;
+      overflow: hidden !important;
+      position: absolute !important;
+      width: 1px !important;
+    }
 
-<body style="width:200px;min-height:100px"> 
-  已经开启捕获 postMessage.
-  <script src="js/popup.js"></script>
+    @keyframes switchOn {
+    0% {
+      top: 0px;
+      left: 0px;
+    }	
+    100% { 
+      top: 0px;
+      left: 20px;
+    }
+    }
+    @keyframes switchOff {
+    0% {
+      top: 0px;
+      left: 20px;
+    }
+      
+    100% { 
+      top: 0px;
+      left: 0px;
+    }
+    }
+    input[type=checkbox]:checked + label.check {
+      top: 0px;
+      left: 20px;	
+      -webkit-animation: switchOn 0.2s ease-in 0s 1;
+      animation: switchOn 0.2s ease-in 0s 1;
+      box-shadow: #244766 -1px 0px 3px;
+    }
+
+    input[type=checkbox] + label.check {
+      top: 0px;
+      left: 0px;
+      -webkit-animation: switchOff 0.2s ease-in 0s 1;
+      animation: switchOff 0.2s ease-in 0s 1;
+      box-shadow: #244766 1px 0px 3px;		
+    }
+    .status{
+      text-align:center;
+    }
+	</style>
+</head>
+<body>
+  <div class="content">
+    <div class="nx-switch">
+      <input type="checkbox" value="wi-fi" id="wifi" name="wifi" checked="checked" />
+      <label for="wifi" class="check"></label>
+    </div>
+    <script src="./js/popup.js"></script>
+  </div>
 </body>
 </html>
