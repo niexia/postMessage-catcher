@@ -29,3 +29,18 @@ function injectToLogPostMessage() {
   }
 }
 injectToLogPostMessage();
+
+/**
+ * set up an runtime message event listener
+ */
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    console.log(sender.tab ?
+      "from a content script:" + sender.tab.url :
+      "from the extension");
+    if (request.enablePostMessageCatcher == "hello")
+      sendResponse({
+        farewell: "goodbye"
+      });
+  }
+);

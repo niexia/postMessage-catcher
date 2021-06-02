@@ -1,3 +1,5 @@
+const STATUS_FONT_STYLE = "color: yellow; font-style: italic; background-color: blue;padding: 2px";
+
 function Switch(options) {
   this.el = options.el;
   this.defaultStatus = options.checked;
@@ -17,7 +19,7 @@ function Switch(options) {
       const msg = checked ?
         'The catcher is already on!':
         'The catcher is already off!'
-      console.log(`%c${msg}`, "color: yellow; font-style: italic; background-color: blue;padding: 2px");
+      console.log(`%c${msg}`, STATUS_FONT_STYLE);
     });
   }
 }
@@ -55,12 +57,22 @@ catcherSwitch.el.addEventListener('change', catcherSwitch.onChange);
  * turn on catcher
  */
 function catcherOn() {
-  console.log('on');
+  chrome.runtime.sendMessage({
+    enablePostMessageCatcher: true
+  }, function (response) {
+    console.log(response.farewell);
+    console.log(`%c$The catcher is already on!`, STATUS_FONT_STYLE);
+  });
 }
 
 /**
  * turn off catcher
  */
 function catcherOff() {
-  console.log('off');
+  chrome.runtime.sendMessage({
+    enablePostMessageCatcher: false
+  }, function (response) {
+    console.log(response.farewell);
+    console.log(`%c$The catcher is already off!`, STATUS_FONT_STYLE);
+  });
 }
