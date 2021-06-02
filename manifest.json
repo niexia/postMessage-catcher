@@ -36,6 +36,6 @@
   ],
   "homepage_url": "https://github.com/niexia/postMessage-catcher",
   "permissions": [
-    "activeTab"
+    "storage"
   ]
 }
