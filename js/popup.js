@@ -72,15 +72,18 @@ function catcherOff() {
 
 function sendMessageToContentScript(message, callback) {
   chrome.tabs.query({
-    active: true,
     currentWindow: true
   }, function (tabs) {
-    chrome.tabs.sendMessage(
-      tabs[0].id, 
-      message, 
-      function handler (response) {
-        if (callback) callback(response);
-      }
-    );
+    tabs.forEach(tab => {
+      chrome.tabs.sendMessage(
+        tab.id,
+        message,
+        function handler (response) {
+          if (callback) {
+            callback(response);
+          }
+        }
+      );
+    })
   });
 }

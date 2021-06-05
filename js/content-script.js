@@ -11,7 +11,6 @@ function logReceivedMessage(event) {
     console.log("Message received by: " + document.location.href, "\norigin: " + event.origin + " source is cross-origin", "\ndata:", event.data)
   }
 }
-// window.addEventListener("message", logReceivedMessage)
 
 /**
  * inject a script to log postMessage
@@ -29,13 +28,13 @@ function injectToLogPostMessage() {
     console.log('error: ', error);
   }
 }
-// injectToLogPostMessage();
 
 
 /**
  * init Catcher
  */
 function initCatcher() {
+  console.log('init catcher!', __init);
   chrome.storage.sync.get(['enablePostMessageCatcher'], function (result) {
     const { enablePostMessageCatcher } = result;
     if (enablePostMessageCatcher) {
@@ -47,6 +46,10 @@ function initCatcher() {
 }
 
 function openCather() {
+  if (!__init) {
+    initCatcher();
+    return;
+  }
   window.addEventListener("message", logReceivedMessage);
 }
 
@@ -78,3 +81,5 @@ chrome.runtime.onMessage.addListener(
     sendResponse({ msg });
   }
 );
+
+initCatcher();
