@@ -1,4 +1,5 @@
 const STATUS_FONT_STYLE = "color: yellow; font-style: italic; background-color: blue;padding: 2px";
+const STORE_FONT_STYLE = "font-style: italic; padding: 2px";
 
 function Switch(options) {
   this.el = options.el;
@@ -15,12 +16,7 @@ function Switch(options) {
     // set store
     chrome.storage.sync.set({
       'enablePostMessageCatcher': checked
-    }, () => {
-      const msg = checked ?
-        'The catcher is already on!':
-        'The catcher is already off!'
-      console.log(`%c${msg}`, STATUS_FONT_STYLE);
-    });
+    }, () => {});
   }
 }
 const catcherSwitch = new Switch({
@@ -42,9 +38,6 @@ chrome.storage.sync.get(['enablePostMessageCatcher'], function (result) {
     })
   } else {
     catcherSwitch.el.checked = enablePostMessageCatcher;
-    if (!enablePostMessageCatcher) {
-      catcherOff();
-    }
   }
 });
 
@@ -57,11 +50,11 @@ catcherSwitch.el.addEventListener('change', catcherSwitch.onChange);
  * turn on catcher
  */
 function catcherOn() {
-  chrome.runtime.sendMessage({
-    enablePostMessageCatcher: true
-  }, function (response) {
-    console.log(response.farewell);
-    console.log(`%c$The catcher is already on!`, STATUS_FONT_STYLE);
+  sendMessageToContentScript({
+    catcher: 'on'
+  }, function (response = {}) {
+    const { msg } = response;
+    console.log(`%c${msg}`, STATUS_FONT_STYLE);
   });
 }
 
@@ -69,10 +62,25 @@ function catcherOn() {
  * turn off catcher
  */
 function catcherOff() {
-  chrome.runtime.sendMessage({
-    enablePostMessageCatcher: false
-  }, function (response) {
-    console.log(response.farewell);
-    console.log(`%c$The catcher is already off!`, STATUS_FONT_STYLE);
+  sendMessageToContentScript({
+    catcher: 'off'
+  }, function (response = {}) {
+    const { msg } = response;
+    console.log(`%c${msg}`, STATUS_FONT_STYLE);
+  });
+}
+
+function sendMessageToContentScript(message, callback) {
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function (tabs) {
+    chrome.tabs.sendMessage(
+      tabs[0].id, 
+      message, 
+      function handler (response) {
+        if (callback) callback(response);
+      }
+    );
   });
 }
