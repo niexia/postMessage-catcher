@@ -1,3 +1,5 @@
+let __logMessageTimerId;
+
 /**
  * log posted message
  */
@@ -5,21 +7,62 @@ function __logPostMessage() {
   const iframeList = Array.from(document.querySelectorAll('iframe'));
   iframeList.forEach(iframe => {
     try {
-      if (iframe.contentWindow.__catch) {
+      const { postMessage, __catchPostMessage } = iframe.contentWindow;
+      if (__catchPostMessage) {
         return;
       }
-      const postMessage = iframe.contentWindow.postMessage;
-      iframe.contentWindow.__catch = true;
+      iframe.contentWindow.__catchPostMessage = postMessage;
       iframe.contentWindow.postMessage = function () {
-        console.log(...arguments);
         postMessage(...arguments);
+        console.log(
+          "⬆️",
+          "\nMessage posted to: " + iframe.src,
+          "\ndata: ", ...arguments
+        );
       }
-      console.log('catch success!\n', iframe.src)
     } catch (error) {
-      // console.log('Catch postMessage error', error);
+      // console.log('Open postMessage catcher error: ', error);
     }
   })
 }
 
-let __logMessageTimerId = setInterval(__logPostMessage, 500);
-__logPostMessage();
+function __closeLogPostMessage() {
+  if (__logMessageTimerId) {
+    clearInterval(__logMessageTimerId);
+    __logMessageTimerId = null;
+  }
+  const iframeList = Array.from(document.querySelectorAll('iframe'));
+  iframeList.forEach(iframe => {
+    try {
+      const { __catchPostMessage } = iframe.contentWindow;
+      if (!__catchPostMessage) {
+        return;
+      }
+      iframe.contentWindow.postMessage = __catchPostMessage;
+      delete iframe.contentWindow.__catchPostMessage;
+    } catch (error) {
+      // console.log('Close postMessage catcher error: ', error);
+    }
+  })
+}
+
+function __openLogPostMessage() {
+  __logPostMessage();
+  __logMessageTimerId = setInterval(__logPostMessage, 500);
+}
+
+
+window.addEventListener("message", function (e) {
+  const { type, data } = e.data || {};
+  if (type !== 'postMessage-catcher') {
+    return;
+  }
+  if (data.catcher) {
+    __openLogPostMessage();
+  } else {
+    __closeLogPostMessage();
+  }
+}, false);
+
+
+__openLogPostMessage();
