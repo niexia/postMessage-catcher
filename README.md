@@ -14,7 +14,7 @@ It work as a logger for Messages received by a webpage, and a catcher for messag
 
 This extension was inspired by [postMessage-logger](https://github.com/opnsec/postMessage-logger).
 
-Thanks for these excellent development documents, which helped me learn a lot of development skills about the extensions.
+Thanks for these excellent development documents.
 
 - [Extensions](https://developer.chrome.com/docs/extensions/)
 - [chrome-plugin-demo](https://github.com/sxei/chrome-plugin-demo)
