@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "postMessage-catcher",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Chrome extension that captures the content of postMessage.",
   "icons": {
     "16": "img/icon-16.png",
