@@ -4,7 +4,7 @@ A Chrome extension that captures the content of postMessage.
 
 It work as a logger for Messages received by a webpage, and a catcher for message posted by current page, Open the console (F12) to view the message logs.
 
-[To install](https://chrome.google.com/webstore/detail/postmessage-catcher/henlmhlhpgnkeecjjcbhhcfmecohnilo)
+[To install](https://chrome.google.com/webstore/detail/postmessage-catcher/henlmhlhpgnkeecjjcbhhcfmecohnilo), or download the zip (in `assets/postMessage-catcher.zip`), and then install it manually.
 
 ### Screenshot
 
