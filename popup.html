@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>popup</title>
 	<style type="text/css">
     body {
-      width: 130px;
+      width: 240px;
     }
     body * {
       box-sizing: border-box;
@@ -12,9 +13,6 @@
     .content {
       position: relative;
       margin: 10px;
-    }
-    .nx-form-item {
-      margin-bottom: 16px;
     }
     .nx-form-item:after, 
     .nx-form-item:before {
@@ -26,14 +24,26 @@
       vertical-align: middle;
       float: left;
       font-size: 14px;
-      color: #606266;
       line-height: 40px;
       padding: 0 12px 0 0;
       box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
     .nx-form-item__content {
       line-height: 40px;
       margin-left: 60px;
+    }
+    .nx-form-item__content a {
+      color: #409eff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nx-form-item__content a:hover {
+      color: #66b1ff;
     }
     .nx-switch {
       position: relative;
@@ -90,9 +100,10 @@
 </head>
 <body>
   <div class="content">
+    <h3>postMessage Catcher</h3>
     <div class="nx-form">
       <div class="nx-form-item">
-        <label class="nx-form-item__label">catcher</label>
+        <label class="nx-form-item__label">⚡ Enable</label>
         <div class="nx-form-item__content">
           <div class="nx-switch">
             <input type="checkbox" id="switch" class="nx-switch__input"/>
@@ -100,9 +111,14 @@
           </div>
         </div>
       </div>
+      <div class="nx-form-item">
+        <label class="nx-form-item__label">🌟 Contribution</label>
+        <div class="nx-form-item__content">
+          <a href="https://github.com/niexia/postMessage-catcher">🔗 GitHub
+        </div>
       </div>
     </div>
-    <script src="./js/popup.js"></script>
   </div>
+  <script src="./js/popup.js"></script>
 </body>
 </html>
