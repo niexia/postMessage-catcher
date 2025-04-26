@@ -29,13 +29,26 @@ Install directly from the [Chrome Web Store](https://chrome.google.com/webstore/
 
 Contributions are welcome! Here's how you can help:
 
+### Submitting Issues
+
+If you find a bug or have a feature suggestion, please create an issue:
+
+1. Navigate to the project's [Issues page](https://github.com/niexia/postMessage-catcher/issues)
+2. Click the "New Issue" button
+3. Choose the appropriate issue template:
+   - Bug Report: Describe the issue, steps to reproduce, and expected behavior
+   - Feature Request: Describe the new feature and its use cases
+4. Fill in all required information and submit
+
+### Contributing Code
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-### Development Setup
+Development Setup
 
 1. Clone the repository
 3. Test the extension locally by loading it as an unpacked extension
