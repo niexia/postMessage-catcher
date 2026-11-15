@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>messages</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html,
+      body {
+        width: 1280px;
+        height: 800px;
+        overflow: hidden;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        color: #e8eaed;
+        background:
+          radial-gradient(900px 520px at 18% -8%, #1d2637 0%, rgba(29, 38, 55, 0) 60%),
+          radial-gradient(900px 600px at 100% 0%, #172033 0%, rgba(23, 32, 51, 0) 55%), #0b0d11;
+      }
+      .frame {
+        height: 100%;
+        padding: 34px 40px 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #7d8aa1;
+        font-weight: 600;
+      }
+      h1 {
+        margin-top: 7px;
+        font-size: 33px;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+      }
+      p {
+        margin-top: 7px;
+        font-size: 14px;
+        color: #98a2b3;
+      }
+      .shot {
+        margin-top: 20px;
+        width: 1200px;
+        height: 652px;
+        object-fit: cover;
+        object-position: top left;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="eyebrow">postMessage-catcher</div>
+      <h1>See every message, in every frame</h1>
+      <p>
+        Capture starts at document_start inside all frames — iframes, srcdoc and pre-load traffic
+        included.
+      </p>
+      <img class="shot" src="/docs/screenshots/panel-dark.png" alt="" />
+    </div>
+  </body>
+</html>

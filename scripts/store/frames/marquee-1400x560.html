@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>marquee</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html,
+      body {
+        width: 1400px;
+        height: 560px;
+        overflow: hidden;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+        color: #e8eaed;
+        background:
+          radial-gradient(900px 520px at 12% -10%, #1d2637 0%, rgba(29, 38, 55, 0) 62%),
+          radial-gradient(800px 600px at 100% 10%, #172033 0%, rgba(23, 32, 51, 0) 60%), #0b0d11;
+      }
+      .frame {
+        height: 100%;
+        padding: 56px 64px;
+        display: flex;
+        align-items: center;
+        gap: 56px;
+      }
+      .left {
+        flex: 1;
+        min-width: 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand img {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+      }
+      .brand span {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #7d8aa1;
+        font-weight: 600;
+      }
+      h1 {
+        margin-top: 22px;
+        font-size: 44px;
+        line-height: 1.06;
+        letter-spacing: -0.025em;
+      }
+      p {
+        margin-top: 14px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #98a2b3;
+        max-width: 540px;
+      }
+      .chips {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .chip {
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 12px;
+        color: #b8c0cc;
+      }
+      .right {
+        flex: 0 0 596px;
+      }
+      .right img {
+        width: 596px;
+        height: 430px;
+        object-fit: cover;
+        object-position: top left;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="left">
+        <div class="brand">
+          <img src="/public/icon/128.png" alt="" />
+          <span>postMessage-catcher</span>
+        </div>
+        <h1>Every message.<br />Every frame.<br />No console noise.</h1>
+        <p>
+          A DevTools panel for postMessage: parsed payloads, trusted sender attribution and history
+          that survives reloads.
+        </p>
+        <div class="chips">
+          <span class="chip">document_start</span>
+          <span class="chip">all frames</span>
+          <span class="chip">JSON strings parsed</span>
+          <span class="chip">local only</span>
+        </div>
+      </div>
+      <div class="right">
+        <img src="/docs/screenshots/panel-dark.png" alt="" />
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "noAuthors": true,
+  "types": {
+    "feat": { "title": "Features", "semver": "minor" },
+    "fix": { "title": "Bug Fixes", "semver": "patch" },
+    "perf": { "title": "Performance", "semver": "patch" },
+    "refactor": { "title": "Refactoring", "semver": "patch" },
+    "docs": false,
+    "chore": false,
+    "ci": false,
+    "test": false,
+    "build": false,
+    "style": false,
+    "types": false,
+    "examples": false
+  },
+  "templates": {
+    "tagBody": "{{newVersion}}"
+  }
+}
