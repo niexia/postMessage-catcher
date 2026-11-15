@@ -105,7 +105,10 @@ git push origin main --follow-tags
 ```
 
 Use an annotated tag; `--follow-tags` does not push lightweight tags. The tag
-triggers `.github/workflows/release.yml` (checks, zip, GitHub Release).
+triggers `.github/workflows/release.yml` (checks, zip, GitHub Release). Push
+`main` before the tag: GitHub only triggers tag-push workflows when the workflow
+file already exists on the default branch, so pushing both together can silently
+skip the run (delete and re-push the tag if that happens).
 Verify the workflow and the attached zip. Do not create a GitHub Release by hand
 with a different body than `CHANGELOG.md`.
 

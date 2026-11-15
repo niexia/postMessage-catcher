@@ -96,6 +96,11 @@ it checks the tag against `package.json`, runs `pnpm check`, builds the zip,
 extracts the matching CHANGELOG section as release notes, and creates a GitHub
 Release with the zip attached. Verify the workflow and the attachment.
 
+**Push `main` before the tag.** GitHub only triggers tag-push workflows when the
+workflow file already exists on the default branch. If you push `main` and the
+tag together and the workflow is new, the tag run is silently skipped; delete and
+re-push the tag after `main` lands.
+
 ## 6. Chrome Web Store
 
 Submission is manual:
