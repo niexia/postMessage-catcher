@@ -242,6 +242,11 @@ buffer stays responsive.
 - **Detail** — Overview (routing, sizes, warnings), Payload (lazy tree), Raw.
   The active tab belongs to the panel, not the message, so it survives selecting
   another message: scan payload after payload with one click each.
+- **JSON encoded as a string** — widget/SDK payloads are frequently
+  `JSON.stringify`-ed before posting. The Payload tab detects that, shows the
+  parsed tree by default and offers a **Parsed / Text** switch back to the exact
+  original string; the list's TYPE column shows the inner discriminator instead
+  of `<string>`.
 - **Keyboard** — `⌘F`/`Ctrl+F` search, `↑`/`↓` move selection, `Esc` clear.
 - **Popup** — one settings card with the per-tab and master switches (the
   per-tab switch disables itself when the master switch is off), the buffer

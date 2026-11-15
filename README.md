@@ -36,6 +36,8 @@ v3 is a rewrite around three rules:
 - **Payload inspector** that handles what JSON cannot: cycles, `Map`, `Set`,
   `BigInt`, `Date`, `Error`, typed arrays, `MessagePort`, DOM nodes, throwing
   getters. Truncation is reported, never silent.
+- **JSON-string aware**: a payload that is `JSON.stringify`-ed (widget SDKs love
+  this) is parsed into a tree by default, with a Parsed / Text switch.
 - **History that survives reloads** — the service worker keeps a per-tab ring
   buffer, so you can open the panel _after_ the bug.
 - **Per-tab recording** plus a master switch; scrolling up stops the list from

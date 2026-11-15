@@ -22,6 +22,21 @@
         // Parent -> child: only the child's probe can observe the delivery.
         document.getElementById('same').contentWindow.postMessage({ type: 'to-child' }, '*');
       }, 200);
+      setTimeout(function () {
+        // Widget-style payload: JSON encoded as a string, like the SDKs that
+        // motivated the parsed payload view.
+        window.postMessage(
+          JSON.stringify({
+            type: 'widget',
+            event: 'command',
+            func: 'addEventListener',
+            args: ['onStateChange'],
+            id: 3,
+            channel: 'widget',
+          }),
+          '*',
+        );
+      }, 260);
     </script>
   </body>
 </html>

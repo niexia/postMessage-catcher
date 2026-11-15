@@ -70,3 +70,21 @@ describe('previewOf', () => {
     expect(preview).toBe('[object Object]');
   });
 });
+
+describe('labelOf with JSON encoded strings', () => {
+  it('unwraps the discriminator from a JSON string', () => {
+    expect(labelOf('{"type":"command","id":3}')).toBe('command');
+    expect(labelOf('{"event":"onStateChange"}')).toBe('onStateChange');
+  });
+
+  it('marks JSON strings that have no discriminator', () => {
+    expect(labelOf('{"a":1}')).toBe('<JSON Object>');
+    expect(labelOf('[1,2,3]')).toBe('<JSON Array(3)>');
+  });
+
+  it('leaves plain and broken strings alone', () => {
+    expect(labelOf('hello')).toBe('<string>');
+    expect(labelOf('{"type":"broken"')).toBe('<string>');
+    expect(labelOf('"quoted"')).toBe('<string>');
+  });
+});

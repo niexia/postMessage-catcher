@@ -1,3 +1,4 @@
+import { parseJsonString } from './json-string';
 import { MARKER, type JsonValue } from './protocol';
 
 /** Field names that conventionally carry a message's discriminator. */
@@ -57,8 +58,16 @@ export function shapeOf(data: JsonValue): string {
 
 /**
  * The panel's primary label for a message: a discriminator when there is one,
- * otherwise `<Shape>`.
+ * otherwise `<Shape>`. JSON encoded as a string is unwrapped first, because
+ * that is how many widget SDKs send their payloads.
  */
 export function labelOf(data: JsonValue): string {
+  if (typeof data === 'string') {
+    const parsed = parseJsonString(data);
+    if (parsed?.kind === 'json') {
+      return describeType(parsed.value) ?? `<JSON ${shapeOf(parsed.value)}>`;
+    }
+    return '<string>';
+  }
   return describeType(data) ?? `<${shapeOf(data)}>`;
 }

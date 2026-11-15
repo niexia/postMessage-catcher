@@ -25,10 +25,15 @@ interface Row {
 
 function searchable(entry: CapturedMessage): string {
   let payload: string;
-  try {
-    payload = JSON.stringify(entry.data) ?? '';
-  } catch {
-    payload = '';
+  if (typeof entry.data === 'string') {
+    // JSON encoded as a string: search the readable text, not the escapes.
+    payload = entry.data;
+  } else {
+    try {
+      payload = JSON.stringify(entry.data) ?? '';
+    } catch {
+      payload = '';
+    }
   }
   return `${entry.sender.origin} ${entry.sender.url ?? ''} ${entry.receiver.origin} ${labelOf(
     entry.data,

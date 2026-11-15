@@ -1,12 +1,13 @@
 import { Copy, TriangleAlert } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 import { copyText, prettyJson } from '../../lib/clipboard';
-import { isMarker } from '../../lib/describe';
+import { isMarker, shapeOf } from '../../lib/describe';
+import { parseJsonString } from '../../lib/json-string';
 import { formatBytes, formatClock } from '../../lib/format';
 import { MARKER, isOpaqueOrigin, type CapturedMessage } from '../../lib/protocol';
 import { cn } from '../../lib/utils';
 import { IconButton } from '../ui/IconButton';
-import { PayloadTree } from './PayloadTree';
+import { PayloadPane } from './PayloadPane';
 import { directionLabel } from './types';
 
 export type DetailTab = 'overview' | 'payload' | 'raw';
@@ -56,6 +57,13 @@ function warningsFor(entry: CapturedMessage): string[] {
   return warnings;
 }
 
+function payloadSummary(data: CapturedMessage['data']): string {
+  const parsed = parseJsonString(data);
+  if (parsed?.kind === 'json') return `JSON string · ${parsed.text.length} chars`;
+  if (typeof data === 'string') return `string · ${data.length} chars`;
+  return shapeOf(data);
+}
+
 function Overview({ entry }: { entry: CapturedMessage }) {
   const warnings = warningsFor(entry);
   const truncated = entry.truncated
@@ -81,6 +89,7 @@ function Overview({ entry }: { entry: CapturedMessage }) {
         <Field label="Sender URL">{entry.sender.url ?? '—'}</Field>
         <Field label="Receiver URL">{entry.receiver.url}</Field>
         <Field label="Receiver origin">{entry.receiver.origin}</Field>
+        <Field label="Payload">{payloadSummary(entry.data)}</Field>
         <Field label="Size">{formatBytes(entry.size)}</Field>
         <Field label="Frame">#{entry.frameId}</Field>
         <Field label="Document">{entry.documentId ?? '—'}</Field>
@@ -156,13 +165,19 @@ export function MessageDetail({ entry, tab, onTabChange }: MessageDetailProps) {
         </div>
       </div>
 
-      <div className="pmc-scroll min-h-0 flex-1 overflow-auto">
-        {tab === 'overview' ? <Overview entry={entry} /> : null}
-        {tab === 'payload' ? <PayloadTree value={entry.data} /> : null}
+      <div className="flex min-h-0 flex-1 flex-col">
+        {tab === 'overview' ? (
+          <div className="pmc-scroll min-h-0 flex-1 overflow-auto">
+            <Overview entry={entry} />
+          </div>
+        ) : null}
+        {tab === 'payload' ? <PayloadPane data={entry.data} /> : null}
         {tab === 'raw' ? (
-          <pre className="whitespace-pre-wrap break-all p-3 font-mono text-[11px] leading-[1.6]">
-            {prettyJson(entry.data)}
-          </pre>
+          <div className="pmc-scroll min-h-0 flex-1 overflow-auto">
+            <pre className="whitespace-pre-wrap break-all p-3 font-mono text-[11px] leading-[1.6]">
+              {prettyJson(entry.data)}
+            </pre>
+          </div>
         ) : null}
       </div>
     </div>

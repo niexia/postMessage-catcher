@@ -231,6 +231,12 @@ try {
   check('message from an srcdoc frame is captured', types.has('from-srcdoc'));
   check('message from a same-origin iframe is captured', types.has('from-frame'));
   check('parent -> child delivery is captured by the child probe', types.has('to-child'));
+  check(
+    'a JSON encoded string payload is captured verbatim',
+    entries.some(
+      (entry) => typeof entry.data === 'string' && entry.data.includes('"channel":"widget"'),
+    ),
+  );
   const toChild = entries.find((entry) => entry.data?.type === 'to-child');
   check(
     'parent -> child delivery is attributed to the parent window',
