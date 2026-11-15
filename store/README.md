@@ -94,14 +94,25 @@ Do not hand-edit the PNGs.
 postMessage-catcher has one purpose: capture postMessage traffic between the windows and frames of a page the user is inspecting and display it in a DevTools panel, entirely on the user's device.
 ```
 
-**Permission justification:**
+**Permission justifications** (one per dashboard field; both are required even
+though the manifest requests no `host_permissions`, because the dashboard treats
+`content_scripts` match patterns as host access):
+
+`storage` justification:
 
 ```text
-storage: Stores the user's settings, the per-tab recording flag, and the captured message history (payload snapshots, origins, page URLs, timestamps) so the DevTools panel can show traffic that happened before it was opened. Everything stays in chrome.storage on the user's device and is never transmitted.
+Stores the extension's settings (master switch, theme), per-tab recording flags, and the captured message history: payload snapshots, sender and receiver origins, page URLs, timestamps, frame and document ids. The DevTools panel reads this history so traffic captured before it was opened is not lost, and so the recording state survives service-worker restarts. Everything stays in chrome.storage on the user's device; nothing is transmitted, and the Clear action removes the buffered history.
 ```
 
-Content scripts are declared in the manifest and do not request host permissions,
-so there is no broad host-access justification to write.
+Host permission justification:
+
+```text
+postMessage-catcher has one purpose: show the postMessage traffic of the page the user is inspecting. Its declarative content scripts therefore run on any http(s) page, in all frames, so the user can inspect any site. The scripts only add a passive message listener, snapshot the delivered payload plus origin and source, and forward it to the extension. They never modify the page, never replace window.postMessage, and do not read form values, cookies, web storage, network requests, or page text. Captured data stays in local chrome.storage and is never transmitted. A narrower match pattern is not possible because the user chooses which site to inspect.
+```
+
+Replace the older v2 text in the dashboard when uploading v3: it described a
+"configuration" toggle and mentioned executing methods on the page, which no
+longer matches the implementation.
 
 **Remote code:** select **No**.
 
