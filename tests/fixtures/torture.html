@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>postMessage-catcher fixture</title>
+    <script>
+      // Sent before the page is parsed. A document_idle content script misses it.
+      window.postMessage({ type: 'during-head' }, '*');
+    </script>
+  </head>
+  <body>
+    <iframe id="same" src="./frame.html"></iframe>
+    <iframe
+      id="doc"
+      srcdoc="<script>setTimeout(function(){ parent.postMessage({type:'from-srcdoc'},'*'); },60)</script>"
+    ></iframe>
+    <script>
+      setTimeout(function () {
+        window.postMessage({ type: 'after-load', nested: { ok: true } }, '*');
+      }, 120);
+      setTimeout(function () {
+        // Parent -> child: only the child's probe can observe the delivery.
+        document.getElementById('same').contentWindow.postMessage({ type: 'to-child' }, '*');
+      }, 200);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "name": "postmessage-catcher",
+  "description": "Capture, inspect and audit postMessage traffic between windows, iframes and workers.",
+  "private": true,
+  "version": "3.0.0",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niexia/postMessage-catcher.git"
+  },
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "compile": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:probe": "node scripts/smoke-probe.mjs",
+    "test:e2e": "node scripts/e2e.mjs",
+    "check": "pnpm compile && pnpm lint && pnpm test && pnpm build && pnpm test:probe",
+    "changelog": "changelogen --bump",
+    "postinstall": "wxt prepare"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.483.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.0.17",
+    "@types/chrome": "^0.0.280",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "@wxt-dev/module-react": "^1.1.2",
+    "changelogen": "0.6.2",
+    "eslint": "^10.15.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "tailwindcss": "^4.0.17",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0",
+    "wxt": "^0.21.5"
+  }
+}

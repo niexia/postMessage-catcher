@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>frame</title>
+  </head>
+  <body>
+    <script>
+      setTimeout(function () {
+        parent.postMessage({ type: 'from-frame' }, '*');
+      }, 80);
+    </script>
+  </body>
+</html>

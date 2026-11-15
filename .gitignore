@@ -1,0 +1,13 @@
+node_modules/
+.output/
+.wxt/
+stats.html
+*.zip
+.DS_Store
+test-results/
+coverage/
+.store-demo/
+*.crx
+*.pem
+.env
+.env.*
